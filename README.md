@@ -1,7 +1,7 @@
 <h1 align="center">
 	<br>
 	<br>
-	<img width="320" src="media/logo.jpeg" alt="Hers.js">
+	<img width="320" src="https://github.com/valdemarrolfsen/herd.js/raw/main/media/logo.jpeg" alt="Hers.js">
 	<br>
 	<br>
 	<br>
