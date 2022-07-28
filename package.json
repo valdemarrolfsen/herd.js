@@ -2,10 +2,18 @@
   "name": "herd.js",
   "version": "1.0.0",
   "description": "A simple package for cross package development",
+  "keywords": [
+    "command line tool",
+    "package sync"
+  ],
   "main": "bin/index.js",
   "author": "Valdemar Edvard Sandal Rolfsen",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valdemarrolfsen/herd.js.git"
+  },
   "bin": {
     "herd": "./bin/index.js"
   },
