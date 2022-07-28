@@ -1,6 +1,6 @@
 {
   "name": "herd.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple package for cross package development",
   "keywords": [
     "command line tool",
