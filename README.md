@@ -9,6 +9,8 @@
 
 > A simple package for cross package development
 
+[![NPM](https://badgen.net/badge/icon/npm?icon=npm&label)](https://www.npmjs.com/package/herd.js)
+[![Stars](https://badgen.net/github/stars/valdemarrolfsen/herd.js)](https://github.com/valdemarrolfsen/herd.js)
 [![Downloads](https://badgen.net/npm/dt/herd.js)](https://www.npmjs.com/package/herd.js)
 
 Herd.js is a command line tool for syncronizing versioned packages with projects when developing locally. Have you ever published 10 versions of a package just because you could not get the configuration right or you want to see how the changes you made in a package looks in your project? 
