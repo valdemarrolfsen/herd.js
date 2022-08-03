@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const boxen = require("boxen");
 const yargs = require("yargs");
 const path = require("path");
+const chokidar = require("chokidar");
 const fs = require("fs");
 
 const options = yargs
@@ -53,13 +54,17 @@ fs.cp(
     path.join(options.package, "package.json"),
     path.join(destinationPath, "package.json"),
     { force: true },
-    () => {}
+    () => { }
 );
 
 const eventString = chalk.green.bold("Event:");
 var fsTimeout;
 
-fs.watch(buildPath, { recursive: true }, function (event, filename) {
+const watcher = chokidar.watch(buildPath, {
+    ignored: /(^|[\/\\])\../, // ignore dotfiles
+    pollInterval: 1000,
+});
+watcher.on("all", (event, filename) => {
     if (!fsTimeout) {
         fsTimeout = setTimeout(function () {
             fsTimeout = null;
@@ -67,4 +72,4 @@ fs.watch(buildPath, { recursive: true }, function (event, filename) {
         console.log(eventString, filename ?? "A file", "changed. Event:", event);
         fs.cpSync(buildPath, path.join(destinationPath, options.buildPath), { recursive: true, force: true });
     }
-});
+})
