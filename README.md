@@ -27,6 +27,12 @@ npm install -g herd.js
 herd -d <project destination> -p <package destination>
 ```
 
+For multiple output destinations:
+
+```sh
+herd -d <destination1,destination2,destination3...> -p <package destination>
+```
+
 ## Options
 
 `--help` Show help [boolean]
