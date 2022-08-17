@@ -37,24 +37,28 @@ const boxenOptions = {
 const msgBox = boxen(greeting, boxenOptions);
 
 console.log(msgBox);
-
-const destination = chalk.white.bold("Destination:");
+const detinationArguments = options.destination.split(",");
+const destination = chalk.white.bold("Destination(s):");
 const package = chalk.white.bold("Package:");
-console.log(destination, options.destination);
+console.log(destination, detinationArguments.join(", "));
 console.log(package, options.package);
 
 let rawdata = fs.readFileSync(path.join(options.package, "package.json"));
 let packageConfig = JSON.parse(rawdata);
 
 const buildPath = path.join(options.package, options.buildPath);
-const destinationPath = path.join(options.destination, "node_modules", packageConfig.name);
-
-fs.cp(
-    path.join(options.package, "package.json"),
-    path.join(destinationPath, "package.json"),
-    { force: true },
-    () => {}
+const destinationPaths = detinationArguments.map((destinationArgument) =>
+    path.join(destinationArgument, "node_modules", packageConfig.name)
 );
+
+for (const destinationPath of destinationPaths) {
+    fs.cp(
+        path.join(options.package, "package.json"),
+        path.join(destinationPath, "package.json"),
+        { force: true },
+        () => {}
+    );
+}
 
 const eventString = chalk.green.bold("Event:");
 var fsTimeout;
@@ -65,6 +69,8 @@ fs.watch(buildPath, { recursive: true }, function (event, filename) {
             fsTimeout = null;
         }, 1000);
         console.log(eventString, filename ?? "A file", "changed. Event:", event);
-        fs.cpSync(buildPath, path.join(destinationPath, options.buildPath), { recursive: true, force: true });
+        for (const destinationPath of destinationPaths) {
+            fs.cpSync(buildPath, path.join(destinationPath, options.buildPath), { recursive: true, force: true });
+        }
     }
 });
